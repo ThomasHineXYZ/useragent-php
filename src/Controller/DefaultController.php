@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Response;
 use App\Agent;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * What is the plan for this thing to do
