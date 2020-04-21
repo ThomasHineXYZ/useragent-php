@@ -13,17 +13,12 @@ class Agent
     {
         $agent = new JAgent();
 
-        echo "<pre>";
-        print_r($agent);
-        echo "</pre>";
-        exit();
-
         $splitAgent = [
             'device' => $agent->device(),
             'deviceType' => $this->deviceType($agent),
-            'languages' => implode(", ", $agent->languages()),
+            'languages' => json_encode($agent->languages()),
             'platform' => $agent->platform(),
-            'browser' => $agent->browser(),
+            'browser' => $this->grabBrowser($agent),
         ];
 
         return $splitAgent;
@@ -43,4 +38,15 @@ class Agent
 
         return "other";
     }
+
+    private function grabBrowser(\Jenssegers\Agent\Agent $agent)
+    {
+        // Check over some niche ones won't show up normally
+        if ($agent->match('^Links')) {
+            return "Links";
+        }
+
+        return $agent->browser();
+    }
+
 }
