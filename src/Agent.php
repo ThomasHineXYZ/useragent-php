@@ -27,7 +27,7 @@ class Agent
             'device' => $agent->device(),
             'deviceType' => $this->getDeviceType($agent),
             'languages' => json_encode($agent->languages()),
-            'platform' => $agent->platform(),
+            'platform' => $this->getPlatform($agent),
             'browser' => $this->getBrowser($agent),
         ];
 
@@ -48,6 +48,8 @@ class Agent
         // Check over some niche ones won't show up normally
         if ($agent->match('^Links')) {
             return "Links";
+        } elseif ($agent->match('Nintendo WiiU')) {
+            return "WiiU Browser";
         }
 
         // If it's none of the above, return what the parser found
@@ -76,6 +78,26 @@ class Agent
         }
 
         return "other";
+    }
+
+    /**
+     * Grabs the name of the browser, checking it against a custom list first
+     *
+     * @param  \Jenssegers\Agent\Agent $agent
+     *
+     * @return string
+     */
+    private function getPlatform(\Jenssegers\Agent\Agent $agent)
+    {
+        // Check over some niche devices
+        if ($agent->match('Nintendo WiiU')) {
+            return "Nintendo WiiU";
+        } elseif ($agent->match('Nintendo')) {
+            return "Nintendo device";
+        }
+
+        // If it's none of the above, return what the parser found
+        return $agent->platform();
     }
 
     private function store(string $userAgent, array $split)
