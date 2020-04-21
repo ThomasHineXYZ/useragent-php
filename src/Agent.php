@@ -103,6 +103,8 @@ class Agent
             return "Nintendo Wii";
         } elseif ($agent->match('Nintendo Switch')) {
             return "Nintendo Switch";
+        } elseif ($agent->match('Nintendo 3DS')) {
+            return "Nintendo 3DS";
         } elseif ($agent->match('Nintendo')) {
             return "Nintendo device";
         } elseif ($agent->match('PlayStation 4')) {
@@ -118,6 +120,7 @@ class Agent
         $query = $this->db->prepare("
             INSERT INTO user_agents (
                 user_agent,
+                stored,
                 device,
                 device_type,
                 languages,
@@ -125,6 +128,7 @@ class Agent
                 browser
             ) VALUES (
                 :user_agent,
+                NOW(),
                 :device,
                 :device_type,
                 :languages,
@@ -132,6 +136,7 @@ class Agent
                 :browser
             )
             ON DUPLICATE KEY UPDATE
+                stored = VALUES(stored),
                 device = VALUES(device),
                 device_type = VALUES(device_type),
                 languages = VALUES(languages),
