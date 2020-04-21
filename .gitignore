@@ -14,3 +14,17 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+# Test files
+src/Command/TestCommand.php
+src/Controller/TestController.php
+src/Test.php
+
+# `Sublime Text` editor excludes
+*.sublime-workspace
+
+# Personal files
+todo.txt
+
+# PHP Coding Standards (CS) Fixer
+.php_cs.cache
