@@ -50,6 +50,13 @@ class Agent
             return "Links";
         } elseif ($agent->match('Nintendo WiiU')) {
             return "WiiU Browser";
+        } elseif (
+            $agent->match('Nintendo Switch') &&
+            $agent->match('WifiWebAuthApplet')
+        ) {
+            return "Switch WebAuth";
+        } elseif ($agent->match('NintendoBrowser')) {
+            return "NintendoBrowser";
         }
 
         // If it's none of the above, return what the parser found
@@ -92,8 +99,14 @@ class Agent
         // Check over some niche devices
         if ($agent->match('Nintendo WiiU')) {
             return "Nintendo WiiU";
+        } elseif ($agent->match('Nintendo Wii')) {
+            return "Nintendo Wii";
+        } elseif ($agent->match('Nintendo Switch')) {
+            return "Nintendo Switch";
         } elseif ($agent->match('Nintendo')) {
             return "Nintendo device";
+        } elseif ($agent->match('PlayStation 4')) {
+            return "Playstation 4";
         }
 
         // If it's none of the above, return what the parser found
