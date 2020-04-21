@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+            "name": "User Agent",
+			"path": ".",
+            "file_exclude_patterns": [
+                "*.sublime-project",
+                "*.sublime-workspace",
+                ".php_cs",
+                "*.lock",
+                "phpunit.xml.dist",
+            ],
+            "folder_exclude_patterns": ["vendor", "var"],
+		}
+	]
+}
