@@ -2,16 +2,26 @@
 
 namespace App;
 
-use Jenssegers\Agent\Agent as JAgent;
+use App\SQL\SQL;
+use Jenssegers\Agent\Agent as JenssegersAgent;
 
 /**
  * Splits up the browser's useragent, and stores it
  */
 class Agent
 {
+    private $db;
+
+    public function __construct()
+    {
+        // Set up DB access with PDO
+        $sql = new SQL();
+        $this->db = $sql->set("UserAgent");
+    }
+
     public function execute()
     {
-        $agent = new JAgent();
+        $agent = new JenssegersAgent();
 
         $splitAgent = [
             'device' => $agent->device(),
@@ -20,6 +30,8 @@ class Agent
             'platform' => $agent->platform(),
             'browser' => $this->getBrowser($agent),
         ];
+
+        $this->store($agent->getUserAgent(), $splitAgent);
 
         return $splitAgent;
     }
@@ -64,5 +76,42 @@ class Agent
         }
 
         return "other";
+    }
+
+    private function store(string $userAgent, array $split)
+    {
+        $query = $this->db->prepare("
+            INSERT INTO user_agents (
+                user_agent,
+                device,
+                device_type,
+                languages,
+                platform,
+                browser
+            ) VALUES (
+                :user_agent,
+                :device,
+                :device_type,
+                :languages,
+                :platform,
+                :browser
+            )
+            ON DUPLICATE KEY UPDATE
+                device = VALUES(device),
+                device_type = VALUES(device_type),
+                languages = VALUES(languages),
+                platform = VALUES(platform),
+                browser = VALUES(browser)
+            ;
+        ");
+
+        $query->execute([
+            ":user_agent" => $userAgent,
+            ":device" => $split['device'],
+            ":device_type" => $split['deviceType'],
+            ":languages" => $split['languages'],
+            ":platform" => $split['platform'],
+            ":browser" => $split['browser'],
+        ]);
     }
 }
