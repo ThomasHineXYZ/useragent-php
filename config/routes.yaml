@@ -1,6 +1,3 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
-app_user_agent:
+index:
     path: /
-    controller: App\Controller\UserAgentGrabber::page
+    controller: App\Controller\DefaultController::index
