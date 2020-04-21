@@ -9,19 +9,18 @@ use Jenssegers\Agent\Agent as JAgent;
  */
 class Agent
 {
-    public function execute($userAgent)
+    public function execute()
     {
         $agent = new JAgent();
 
-        $agent->setUserAgent($userAgent);
-
-        // echo "<pre>";
-        // print_r($agent);
-        // echo "</pre>";
-        // exit();
+        echo "<pre>";
+        print_r($agent);
+        echo "</pre>";
+        exit();
 
         $splitAgent = [
             'device' => $agent->device(),
+            'deviceType' => $this->deviceType($agent),
             'languages' => implode(", ", $agent->languages()),
             'platform' => $agent->platform(),
             'browser' => $agent->browser(),
@@ -30,4 +29,18 @@ class Agent
         return $splitAgent;
     }
 
+    private function deviceType(\Jenssegers\Agent\Agent $agent)
+    {
+        if ($agent->isDesktop()) {
+            return "desktop";
+        } elseif ($agent->isPhone()) {
+            return "phone";
+        } elseif ($agent->isTablet()) {
+            return "tablet";
+        } elseif ($agent->isRobot()) {
+            return "robot";
+        }
+
+        return "other";
+    }
 }

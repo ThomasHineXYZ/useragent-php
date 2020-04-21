@@ -12,10 +12,10 @@ class DefaultController
 {
     public function index()
     {
-        $agent = new Agent();
         $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
-        $values = $agent->execute($userAgent);
+        $agent = new Agent();
+        $values = $agent->execute();
 
         $output = "";
         foreach ($values as $key => $value) {
