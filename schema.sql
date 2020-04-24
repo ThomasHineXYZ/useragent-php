@@ -13,7 +13,7 @@ CREATE TABLE `user_agents` (
   `device_type` varchar(7) NOT NULL COMMENT 'What type of device it is.',
   `languages` longtext NOT NULL COMMENT 'List of supported languages.' CHECK (json_valid(`languages`)),
   `platform` varchar(16) NOT NULL COMMENT 'What software platform this is on.',
-  `browser` varchar(16) NOT NULL COMMENT 'The name of the browser if it''s known.',
+  `browser` varchar(16) NOT NULL COMMENT 'The name of the browser if it is known.',
   PRIMARY KEY (`user_agent`),
   UNIQUE KEY `user_agent_unique` (`user_agent`),
   KEY `user_agent_index` (`user_agent`)
