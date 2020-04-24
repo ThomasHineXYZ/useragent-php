@@ -5,7 +5,7 @@ namespace App;
 use App\SQL\SQL;
 
 /**
- * What is the plan for this thing to do
+ * Grabs the list of user agents, and returns it.
  */
 class AgentList
 {

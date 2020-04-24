@@ -115,6 +115,12 @@ class Agent
         return $agent->platform();
     }
 
+    /**
+     * Stores the user agent in the table
+     *
+     * @param  string $userAgent The whole user agent string
+     * @param  array  $split     The split up and 'fixed' details of the user agent
+     */
     private function store(string $userAgent, array $split)
     {
         $query = $this->db->prepare("

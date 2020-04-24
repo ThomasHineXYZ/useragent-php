@@ -6,7 +6,7 @@ use App\Agent;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * What is the plan for this thing to do
+ * Generates and return the response for the index page
  */
 class DefaultController
 {
