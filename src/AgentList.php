@@ -23,7 +23,7 @@ class AgentList
         $query = $this->db->query("
             SELECT user_agent
             FROM user_agents
-            ORDER BY stored DESC;
+            ORDER BY last_seen DESC;
         ");
 
         return $query->fetchAll();

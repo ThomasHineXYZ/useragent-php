@@ -120,7 +120,8 @@ class Agent
         $query = $this->db->prepare("
             INSERT INTO user_agents (
                 user_agent,
-                stored,
+                first_seen,
+                last_seen,
                 device,
                 device_type,
                 languages,
@@ -129,6 +130,7 @@ class Agent
             ) VALUES (
                 :user_agent,
                 NOW(),
+                NOW(),
                 :device,
                 :device_type,
                 :languages,
@@ -136,7 +138,7 @@ class Agent
                 :browser
             )
             ON DUPLICATE KEY UPDATE
-                stored = VALUES(stored),
+                last_seen = VALUES(last_seen),
                 device = VALUES(device),
                 device_type = VALUES(device_type),
                 languages = VALUES(languages),

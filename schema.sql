@@ -7,6 +7,8 @@ SET FOREIGN_KEY_CHECKS=0;
 
 CREATE TABLE `user_agents` (
   `user_agent` varchar(256) NOT NULL COMMENT 'The entire user agent.',
+  `first_seen` datetime NOT NULL COMMENT 'DateTime when it was first seen',
+  `last_seen` datetime NOT NULL COMMENT 'DateTime when it was last seen',
   `device` varchar(16) NOT NULL COMMENT 'Unknown',
   `device_type` varchar(7) NOT NULL COMMENT 'What type of device it is.',
   `languages` longtext NOT NULL COMMENT 'List of supported languages.' CHECK (json_valid(`languages`)),
